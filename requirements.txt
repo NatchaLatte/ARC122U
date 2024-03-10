@@ -1,0 +1,4 @@
+# pip install -r requirements.txt
+pyscard==2.0.8
+fastapi==0.110.0
+uvicorn==0.28.0
