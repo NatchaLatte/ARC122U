@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from smartcard.scard import *
 from smartcard.util import toHexString
-import datetime
+
 COMMAND = [0xFF, 0xCA, 0x00, 0x00, 0x00]
 
 app = FastAPI()
