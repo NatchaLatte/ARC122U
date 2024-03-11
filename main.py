@@ -1,4 +1,5 @@
 import uvicorn
+import configparser
 from fastapi import FastAPI
 from smartcard.scard import *
 from smartcard.util import toHexString
@@ -42,7 +43,14 @@ def read_root():
         return {"status": False, "message": str(message).strip()}
 
 if __name__ == "__main__":
-    config = uvicorn.Config("main:app", host="0.0.0.0" , port=8000, reload=True, log_level="info")
-    server = uvicorn.Server(config)
+    try:
+        config = configparser.ConfigParser()
+        config.read("config.ini")
+        HOST = config["DEFAULT"]["HOST"]
+        PORT = int(config["DEFAULT"]["PORT"])
+    except:
+        HOST = "127.0.0.1"
+        PORT = 8000
+    server_config = uvicorn.Config("main:app", host=HOST , port=PORT, reload=True, log_level="info")
+    server = uvicorn.Server(server_config)
     server.run()
-    
